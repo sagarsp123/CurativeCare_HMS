@@ -1,0 +1,107 @@
+{% extends 'layout.html' %} {% block head %}
+<title>Pharmacy- Search Patient</title>
+{% endblock %} {% block body %}
+<div class="jumbotron">
+    <h1 class="text-center">Get Patient Details</h1>
+    <br>
+    <form method="POST" novalidate>
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <label for="formGroupExampleInput">{{ form.patient_id.label }}</label>
+            {{ form.patient_id(class_="form-control")}}
+            <!-- Error Messages -->
+            {% for error in form.patient_id.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span>{{ error }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {{ form.submit(class_="btn btn-primary", value="Search")}}
+    <br>
+    <!-- If Patient Found -->
+    {% if patientData %}
+    <br>
+<hr style="width:50%;text-align:left;margin-left:5; color:gray;background-color:gray; height:0.5px">
+<br>
+    <h3 class="text-center">Patients Details</h3>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date of Admission</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">{{ patientData.ws_pat_id }}</th>
+                <td>{{ patientData.ws_pat_name }} </td>
+                <td>{{ patientData.ws_age }} </td>
+                <td>{{ patientData.ws_adrs }} </td>
+                <td>{{ patientData.ws_doj }} </td>
+
+            </tr>
+
+        </tbody>
+
+        {% endif %}
+    </table>
+    {% if patientData %}
+    <br>
+<hr style="width:50%;text-align:left;margin-left:5; color:gray;background-color:gray; height:0.5px">
+<br>
+    <h3 class="text-center">Medicine Issued</h3>
+    <br>
+    {% if MedJoinedTable[0] %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Serial No</th>
+                <th scope="col">Medicines issued</th>
+                <th scope="col">Qt of Medicine</th>
+                <th scope="col">Rate</th>
+                <th scope="col">Amount</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for row in MedJoinedTable %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ row[0].medicine_name }} </td>
+                <td>{{ row[1].ws_qty }} </td>
+                <td>{{ row[0].rate }} </td>
+                <td>{{ row[1].ws_qty * row[0].rate }} </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+
+    </table>
+    {% else %}
+        <div>
+            <center>
+
+                No Medicines Issued till now...
+            </center>
+        </div>
+    {% endif %}
+    <br><br>
+    <input type="hidden" name="issueMedRequested" value="True">
+    {{ form.submit(class_="btn btn-primary", value="Issue Medicines")}}
+    {% endif %}
+    </form>
+    
+</div>
+
+{% endblock %}

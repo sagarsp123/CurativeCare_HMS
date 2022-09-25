@@ -1,0 +1,45 @@
+{% extends 'layout.html' %} {% block head %}
+<title>View Patient</title>
+{% endblock %} {% block body %}
+<div class="jumbotron">
+    <h1 class="text-align-center">Patients Details</h1>
+    <table id="dtBasicExample" class="table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">SSN</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Date of Admission</th>
+                <th scope="col">Type of Bed</th>
+                <th scope="col">Address</th>
+                <th scope="col">State</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in Patients %}
+            <tr>
+                <th scope="row">{{ patient.ws_pat_id }}</th>
+                <td>{{ patient.ws_ssn }} </td>
+                <td>{{ patient.ws_pat_name }} </td>
+                <td>{{ patient.ws_age }} </td>
+                <td>{{ patient.ws_doj }} </td>
+
+                {% if patient.ws_rtype == 'General'%}
+                <td>General Ward</td>
+                {% elif patient.ws_rtype == 'Semi'%}
+                <td> Semi Sharing</td>
+                {% elif patient.ws_rtype == 'Single'%}
+                <td> Single Room </td>
+                {% endif %}
+
+                <td>{{ patient.ws_adrs }} </td>
+                <td>{{ patient.ws_state }} </td>
+                <td>{{ patient.ws_status }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
