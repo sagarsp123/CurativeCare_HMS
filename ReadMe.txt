@@ -1,6 +1,18 @@
 # HMS
 TCS Case Study 26-June-2020 Hospital Management System.
 
+Facilitated Admin for registrations, Diagnostician offering tests, and Pharmacist with medications in web application.
+
+Application Description:
+• Used Flask-SQLAlchemy with interactive interfaced flask_wtf and secure CSRF token fed to SQLite DB.
+
+• Facilitated Admin for registrations, Diagnostician offering tests, and Pharmacist with medications in web application. 
+
+• Used Flask-SQLAlchemy with interactive interfaced flask_wtf and secure CSRF token fed to SQLite DB.
+
+Skills: HTML-CSS · SQLite · Flask · Python3
+
+
 Below are the Login Details
   <UserType> Admission Executive
   UserName: AdmissionEx
